@@ -21,7 +21,7 @@ $(document).ready(function(){
           var trainName = $('#train-name').val().trim();
           var destination = $('#destination').val().trim();
           var trainTime = $('#train-time').val().trim();
-          var frequency = $('#frequency').val().trim();
+          var frequency = parseInt($('#frequency').val().trim());
 
           db.ref().push({
             trainName: trainName,
@@ -33,4 +33,10 @@ $(document).ready(function(){
 
 });
 
+db.ref().on("child_added", function(snapshot) {
+    $('#').text(snapshot.val().trainName);
+    $('#').text(snapshot.val().destination);
+    $('#').text(snapshot.val().trainTime);
+    $('#').text(snapshot.val().frequency);
+} //add id to table items so that html table can be updated
 
