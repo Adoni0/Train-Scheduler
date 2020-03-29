@@ -31,9 +31,7 @@
           $('#destination').val('');
           $('#train-time').val('');
           $('#frequency').val('');
-
-        //   var tableBody = $('#table-body');
-        //   tableBody.innerHtml += '<tr><td>' + trainName + '</td><td>' + destination + '</td><td>' + trainName + '</td><td>' + frequency + '</td></tr>';
+          
       });
 
 
@@ -51,29 +49,18 @@ db.ref().on("child_added", function(snapshot) {
     var nextArrival;
 
     if(time === max){
-        nextArrival = time.format('hh:mm a/A');
+        nextArrival = time.format('hh:mm A');
         minutesAway = time.diff(moment(), 'minutes');
     } else{
         var difference = moment().diff(time, 'minutes');
         var remainder = difference%frequency;
         minutesAway = frequency - remainder;
-        nextArrival = moment().add(minutesAway, 'm').format('hh:mm a/A');
+        nextArrival = moment().add(minutesAway, 'm').format('hh:mm A');
     }
-    console.log(trainName, destination, minutesAway, nextArrival);
-    var tableElem1 = $('#table-body').append($('<tr><td/>'));
-    tableElem1.append(snapshot.val().trainName);
-
-    var tableElem2 = $('#table-body').append($('<td/>'));
-    tableElem2.append(snapshot.val().destination);
-
-    var tableElem3 = $('#table-body').append($('<td/>'));
-    tableElem3.append(snapshot.val().frequency);
-
-    var tableElem4 = $('#table-body').append($('<td/>'));
-    tableElem4.append(snapshot.val().nextArrival);
-
-    var tableElem5 = $('#table-body').append($('<td/></tr>'));
-    tableElem5.append(snapshot.val().minutesAway);
+    console.log(minutesAway, nextArrival);
+    
+    var tableElem = '<tr><td>' + snapshot.val().trainName + '</td><td>' + snapshot.val().destination + '</td><td>' + snapshot.val().frequency + '</td><td>' + snapshot.val().nextArrival + '</td><td>' + snapshot.val().minutesAway + '</td></tr>';
+    $('#table-body').append(tableElem);
 
    
 }); //dynamically add tr and td and store in variable and append inputted fields
