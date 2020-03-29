@@ -51,21 +51,30 @@ db.ref().on("child_added", function(snapshot) {
     var nextArrival;
 
     if(time === max){
-        nextArrival = time.format('hh:mm A');
+        nextArrival = time.format('hh:mm a/A');
         minutesAway = time.diff(moment(), 'minutes');
     } else{
         var difference = moment().diff(time, 'minutes');
         var remainder = difference%frequency;
         minutesAway = frequency - remainder;
-        nextArrival = moment().add(minutesAway, 'm').format('hh:mm A');
+        nextArrival = moment().add(minutesAway, 'm').format('hh:mm a/A');
     }
-    console.log(minutesAway, nextArrival);
-    $('#table-body').prepend(snapshot.val().trainName);
-    $('#table-body').prepend(snapshot.val().destination);
-    $('#table-body').prepend(snapshot.val().trainTime);
-    $('#table-body').prepend(snapshot.val().frequency);
+    console.log(trainName, destination, minutesAway, nextArrival);
+    var tableElem1 = $('#table-body').append($('<tr><td/>'));
+    tableElem1.append(snapshot.val().trainName);
+
+    var tableElem2 = $('#table-body').append($('<td/>'));
+    tableElem2.append(snapshot.val().destination);
+
+    var tableElem3 = $('#table-body').append($('<td/>'));
+    tableElem3.append(snapshot.val().frequency);
+
+    var tableElem4 = $('#table-body').append($('<td/>'));
+    tableElem4.append(snapshot.val().nextArrival);
+
+    var tableElem5 = $('#table-body').append($('<td/></tr>'));
+    tableElem5.append(snapshot.val().minutesAway);
 
    
-}); //add id to table items so that html table can be updated
-//better option might be to prepend inputs by selecting input id's and adding most recent input to top of table
+}); //dynamically add tr and td and store in variable and append inputted fields
 
