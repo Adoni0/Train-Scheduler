@@ -57,9 +57,9 @@ db.ref().on("child_added", function(snapshot) {
         minutesAway = frequency - remainder;
         nextArrival = moment().add(minutesAway, 'm').format('hh:mm A');
     }
-    console.log(minutesAway, nextArrival);
+
     
-    var tableElem = '<tr><td>' + snapshot.val().trainName + '</td><td>' + snapshot.val().destination + '</td><td>' + snapshot.val().frequency + '</td><td>' + snapshot.val().nextArrival + '</td><td>' + snapshot.val().minutesAway + '</td></tr>';
+    var tableElem = '<tr><td>' + snapshot.val().trainName + '</td><td>' + snapshot.val().destination + '</td><td>' + snapshot.val().frequency + '</td><td>' + nextArrival + '</td><td>' + minutesAway + '</td></tr>';
     $('#table-body').append(tableElem);
 
    
