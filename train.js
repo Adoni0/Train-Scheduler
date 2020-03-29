@@ -31,7 +31,7 @@
           $('#destination').val('');
           $('#train-time').val('');
           $('#frequency').val('');
-          
+
       });
 
 
